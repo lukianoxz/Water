@@ -36,6 +36,6 @@ function AddEventListener(){
     }
 }
 
-GetElementos(5);
+GetElementos(6);
 EsconderElementos();
 AddEventListener();
