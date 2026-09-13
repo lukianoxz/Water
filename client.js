@@ -1,41 +1,72 @@
 "use strict";
 
-let GamesX = [];
-let GamesXbutton = [];
+const numero_jogos = 5;
+let lista_jogos = [];
+let lista_jogos_botao = [];
+const jogo_nao_selecionado = document.getElementById("jogo_nao_selecionado");
 
-function GetElementos(Numero){
-    for (let i = 1; i < Numero + 1; i++){
-        GamesX.push(document.getElementById("Game" + i));
-        GamesXbutton.push(document.getElementById("Game" + i + "button"));
+const array_hash = [
+    "corre-do-lula-2",
+    "corre-do-lula",
+    "papel-apk",
+    "jogo-da-cobrinha",
+    "fuja-do-esfomeado",
+];
+
+// inicializacao
+function pegar_elementos() {
+    for (let i = 0; i < numero_jogos; i++) {
+        lista_jogos.push(document.getElementById("jogo_" + (i + 1)));
+        lista_jogos_botao.push(document.getElementById("jogo_" + (i + 1) + "_botao"));
     }
 }
 
-function EsconderElementos(){
-    for (let i = 0; i < GamesX.length; i++){
-        GamesX[i].style.display = "none";
+// render
+function mostrar_jogo(indice_alvo) {
+    for (let i = 0; i < numero_jogos; i++) {
+        if (i === indice_alvo) {
+            lista_jogos[i].style.display = "block";
+        } else {
+            lista_jogos[i].style.display = "none";
+        }
     }
 }
 
-function Mostrar_ocultar(Elemento){
-    let Esconder = false;
-    if (GamesX[Elemento].style.display === "block"){
-        Esconder = true;
+function atualizar() {
+    let achou = false;
+
+    for (let i = 0; i < numero_jogos; i++) {
+        if (window.location.hash.replace(/^#/, "") == array_hash[i]) {
+            mostrar_jogo(i);
+            achou = true;
+            break;
+        } else {
+            mostrar_jogo(-1);
+        }
     }
-    EsconderElementos();
-    if (!Esconder){
-        GamesX[Elemento].style.display = "block";
+
+    if (achou) {
+        jogo_nao_selecionado.style.display = "none";
+    } else {
+        jogo_nao_selecionado.style.display = "flex";
     }
 }
 
-function AddEventListener(){
-    for (let i = 0; i < GamesXbutton.length; i++){
-        GamesXbutton[i].addEventListener("click", function(){
-            let x = i;
-            Mostrar_ocultar(x);
+// logica
+function conectar() {
+    for (let i = 0; i < numero_jogos; i++) {
+        lista_jogos_botao[i].addEventListener("click", function() {
+            mostrar_jogo(i);
+            window.location.hash = array_hash[i];
         })
     }
 }
 
-GetElementos(5);
-EsconderElementos();
-AddEventListener();
+// inicio
+pegar_elementos();
+conectar();
+atualizar();
+
+window.addEventListener("hashchange", function() {
+    atualizar();
+})
