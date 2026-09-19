@@ -7,13 +7,14 @@
 // js de entrada
 const is_phone = /Android/i.test(navigator.userAgent);
 const is_desk = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+let current_hash = window.location.hash;
 
 if (is_phone) {
-    window.location.href = "./pages/smartphone/index.html"
+    window.location.href = "./pages/smartphone/index.html" + current_hash;
 } else if (is_desk) {
-    window.location.href = "./pages/desktop/index.html"
+    window.location.href = "./pages/desktop/index.html" + current_hash;
 } else {
-    window.location.href = "./pages/smartphone/index.html"
+    window.location.href = "./pages/smartphone/index.html" + current_hash;
 }
 
 </script>

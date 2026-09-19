@@ -1,5 +1,13 @@
 "use strict";
 
+// FUNCAO QUE VAI PRA PAGINA CORRETA
+const is_desk = !/Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+let current_hash = window.location.hash;
+
+if (is_desk) {
+    window.location.href = "./../desktop/index.html" + current_hash;
+}
+
 const numero_jogos = 5;
 let lista_jogos = [];
 let lista_jogos_botao = [];

@@ -1,5 +1,13 @@
 "use strict";
 
+// FUNCAO QUE CHECA O DISP E SE FOR DIFF VAI PRA PAGINA CORRETA COM HASH
+const is_phone = /Android/i.test(navigator.userAgent);
+let current_hash = window.location.hash;
+
+if (is_phone) {
+    window.location.href = "./../smartphone/index.html" + current_hash;
+}
+
 const numero_jogos = 5;
 let lista_jogos = [];
 let lista_jogos_botao = [];
